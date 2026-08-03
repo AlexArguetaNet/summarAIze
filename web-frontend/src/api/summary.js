@@ -9,9 +9,9 @@ export const fetchSummary = async (text) => {
 
         // Format summary string
         const summaryString = res.data.summary
-            .split('\n')
-            .filter(line => line.trim().startsWith('*'))
-            .join(' ');
+            .split('\n')                                 // Split into array, before every new line
+            .filter(line => line.trim().startsWith('*')) // Keep line that start with "*"   
+            .join(' ');                                  // Combine array back into string
 
         // Format summary into an array
         const summaryArray = res.data.summary

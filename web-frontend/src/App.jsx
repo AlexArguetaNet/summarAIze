@@ -4,6 +4,8 @@ import { Spinner } from "./components/ui/spinner"
 import { useState } from "react"
 import { GiSamuraiHelmet } from "react-icons/gi"
 import { fetchSummary } from "./api/summary"
+import { Alert, AlertTitle, AlertDescription, AlertAction } from "./components/ui/alert"
+import { AlertCircleIcon } from "lucide-react"
 
 function App() {
 
@@ -12,18 +14,21 @@ function App() {
   const [summaryStr, setSummaryStr] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isCopied, setIsCopied] = useState(false)
+  const [errorExists, setErrorExists] = useState(false);
+  const [errorDescription, setErrorDescription] = useState("");
 
   const handleClick = async () => {
 
     setIsLoading(true);
     try {
       const summary = await fetchSummary(text);
-      console.log(summary);
       setSummaryArr(summary.summaryArray);
       setSummaryStr(summary.summaryString);
+      setErrorExists(false)
 
     } catch (error) {
-      alert("An error occurred");
+      setErrorExists(true);
+      setErrorDescription(error.message);
     }
 
     setIsLoading(false);
@@ -46,8 +51,23 @@ function App() {
       <div className="mx-auto my-7 max-w-[700px] p-4 bg-gray-50 shadow-md">
         <h1 className="flex align-middle text-4xl pb-5">Summarai <GiSamuraiHelmet /></h1>
 
+        {/* Will render if there are errors */}
+        {
+          errorExists && 
+            <Alert variant="destructive">
+              <AlertCircleIcon />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription className="text-black!">{errorDescription}</AlertDescription>
+              <AlertAction>
+                <Button onClick={() => setErrorExists(false)} size="xs" className="bg-red-400">
+                  X
+                </Button>
+              </AlertAction>
+            </Alert>
+        }
+
         <Textarea 
-          className="h-72 resize-none text-xl" 
+          className="h-72 resize-none text-xl mt-1" 
           placeholder="Enter your text here" 
           value={text}
           onChange={(e) => setText(e.target.value)}
