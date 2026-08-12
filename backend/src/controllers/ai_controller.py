@@ -30,29 +30,54 @@ async def prompt_llama(text: TextRequest) -> dict:
             HTTPException: 500 Internal Server Error - unexpected backend failures
 
     """
-   # Check if the text is reasonably long enough to summarize
-    if len(text.text) < 250:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Text must be at least 250 characters long")
+    textNoSpaces = text.text.strip()
 
-    user_text = text.text # Get the user's text from the pydantic model
+    # Check if input is only whitespace
+    isOnlySpaces = len(textNoSpaces) == 0
+    if isOnlySpaces:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Input is empty. Please enter some text.")
+
+    # Check if input is only numbers
+    if textNoSpaces.isdigit():
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Text is only numbers. Please enter words.")
+
+    # Check if the text is reasonably long enough to summarize
+    if len(text.text) < 250:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Text must be at least 250 characters long.")
+
+    # Check if the input text has exceeded the maximum character count of 25,000
+    if len(text.text) > 25000:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Maximum text length reached. Text should be less than 25000 characters.")
 
     try:
+
+        prompt = "If the text is just a bunch of random characters or illegible, respond with three empty bullet points. Otherwise, summarize this text in three single-sentence bullet points mark with asterisks. Here is the text: "
+
         chat_completion = client.chat.completions.create(
             model="llama-3.1-8b-instant",
             messages = [
                 {
                     "role": "user",
-                    "content": f"Summarize this text in three single-sentence bullet points mark with asterisks: {user_text}",
+                    "content": f"{prompt}{text.text}",
                 }
             ],
         )
 
+        ai_response = chat_completion.choices[0].message.content
+        legible_response = any(char.isalpha() for char in ai_response)
+
+        if not legible_response:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Text may be illegible")
+
         # API call successful
-        return {"summary": chat_completion.choices[0].message.content}
+        return {"summary": ai_response}
 
     # Handle Exceptions
+    except HTTPException:
+        # This is to raise the http exception that check if the response is legible
+        raise
     except APIConnectionError as e:
-        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="Groq services cannot be reached")
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="AI service cannot be reached")
     
     except RateLimitError as e:
         raise HTTPException(status_code=e.status_code, detail="Rate limit exceeded")

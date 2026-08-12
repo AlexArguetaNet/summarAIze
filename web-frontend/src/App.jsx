@@ -10,16 +10,24 @@ import { AlertCircleIcon } from "lucide-react"
 function App() {
 
   const [text, setText] = useState("");
+  const [charCount, setCharCount] = useState(0);
   const [summaryArr, setSummaryArr] = useState([]);
   const [summaryStr, setSummaryStr] = useState("");
+  const [disableButton, setDisableButton] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isCopied, setIsCopied] = useState(false)
   const [errorExists, setErrorExists] = useState(false);
   const [errorDescription, setErrorDescription] = useState("");
 
-  const handleClick = async () => {
+  const handleClick = async (e) => {
+
+    // Prevent default submit behavior
+    e.preventDefault();
+    setSummaryArr([]);
 
     setIsLoading(true);
+    setDisableButton(true);
+
     try {
       const summary = await fetchSummary(text);
       setSummaryArr(summary.summaryArray);
@@ -32,13 +40,25 @@ function App() {
     }
 
     setIsLoading(false);
+    setDisableButton(false);
+
+  }
+
+  const handleTextChange = (text) => {
+    // Check character count, omitting whitespace
+    setCharCount(text.trim().replace(" ", "").length);
+
+    // Set the text value
+    setText(text);
 
   }
 
   const handleClear = () => {
     setSummaryArr("");
     setText("");
-    isCopied(false);
+    setCharCount(0);
+    setIsCopied(false);
+    setDisableButton(false);
   }
 
   const handleCopy = () => {
@@ -66,17 +86,21 @@ function App() {
             </Alert>
         }
 
-        <Textarea 
-          className="h-72 resize-none text-xl mt-1" 
-          placeholder="Enter your text here" 
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
+        <form onSubmit={(e) => handleClick(e)}>
+          <Textarea 
+            className="h-72 resize-none text-xl mt-1" 
+            placeholder="Enter your text here" 
+            value={text}
+            onChange={(e) => handleTextChange(e.target.value)}
+            required
+          />
 
-        <div className="flex justify-between py-5">
-          <Button onClick={handleClick} >Summarize</Button>
-          <p>Character count | {text.length}</p>
-        </div>
+          <div className="flex justify-between py-5">
+            <Button type="submit" disabled={disableButton} className="bg-green-400 text-black">Summarize</Button>
+            <p>Character count | {charCount}</p>
+          </div>
+
+        </form>
 
         <div className="flex justify-center">
           {
@@ -96,7 +120,7 @@ function App() {
                   
                   {isCopied && <p>Copied!</p>}
                   <Button onClick={handleCopy}>Copy</Button>
-                  <Button onClick={handleClear}>Clear</Button>
+                  <Button onClick={handleClear} className="bg-green-400 text-black">New</Button>
                 </div>
               </div>
           }
