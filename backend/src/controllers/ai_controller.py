@@ -8,12 +8,12 @@ from src.utils.env_variables import get_api_key
 API_KEY = get_api_key()
 client = Groq(api_key=API_KEY)
 
-async def prompt_llama(text: TextRequest) -> dict:
+async def prompt_gpt(text: TextRequest) -> dict:
     """
-        Summarizes text into three bullet points using Meta Llama 3.1 8B via the Groq API.
+        Summarizes text into three bullet points using GPT OSS 20B via the Groq API.
 
         Validates the character count of text is at least 250. A chat completion request
-        is sent to Meta's llama-3.1-8b model hosted on Groq Cloud and the chat response
+        is sent to OpenAI's GPT OSS 20B model hosted on Groq Cloud and the chat response
         is returned. Exceptions from the Groq package are caught and translated into
         FastAPI HTTPExceptions.
 
@@ -51,10 +51,10 @@ async def prompt_llama(text: TextRequest) -> dict:
 
     try:
 
-        prompt = "If the text is just a bunch of random characters or illegible, respond with three empty bullet points. Otherwise, summarize this text in three single-sentence bullet points mark with asterisks. Here is the text: "
+        prompt = "If the text is just a bunch of random characters or illegible, respond with three empty bullet points. Otherwise, summarize this text in three short single-sentence bullet points mark with asterisks. Here is the text: "
 
         chat_completion = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
+            model="openai/gpt-oss-120b",
             messages = [
                 {
                     "role": "user",
@@ -83,7 +83,7 @@ async def prompt_llama(text: TextRequest) -> dict:
         raise HTTPException(status_code=e.status_code, detail="Rate limit exceeded")
     
     except APIStatusError as e:
-        raise HTTPException(status_code=e.status_code, detail="There was an error with groq services")
+        raise HTTPException(status_code=e.status_code, detail="There was an error with AI services")
     
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="There was an error with the server")
