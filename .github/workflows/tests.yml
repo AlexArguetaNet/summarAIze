@@ -1,0 +1,58 @@
+name: Automated Tests
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    backend-tests:
+        runs-on: ubuntu-latest
+
+        env:
+            GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+            CORS_ORIGINS: http://localhost:5173
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                python-version: "3.12"
+
+            - name: Install backend dependencies
+              working-directory: backend
+              run: |
+                python -m pip install --upgrade pip
+                pip install -r requirements.txt
+
+            - name: Run backend tests
+              working-directory: backend
+              run: pytest
+
+    web-frontend-tests:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: 22
+                cache: npm
+                cache-dependency-path: web-frontend/package-lock.json
+
+            - name: Install frontend dependencies
+              working-directory: web-frontend
+              run: npm ci
+
+            - name: Run frontend tests
+              working-directory: web-frontend
+              run: npm run test:ci
