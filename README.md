@@ -1,11 +1,9 @@
 # Summarai
-
 ![alt text](screenshots/home-page.png)
 
 Summarai is an AI text summarization tool used to condense large bodies of text into three sentences.
 
 ## Features
-
 - AI-Powered text summarization
 - Copy the generated summary directly to your clipboard
 
@@ -79,15 +77,49 @@ You should now see the Summarai Web App
 ## How it Works
 Summarai uses a React frontend, a FastAPI backend, and the Groq API to generate summaries in the form of three bullet point sentences. When a user submits text, the frontend sends it to the backend in a POST request. The backend then processes the request and send the user's text to Groq. The text is summarized using the OpenAI's GPT OSS 120B model and returns the summary back to the frontend and displayed to the user. 
 
-![alt text](image.png)
+![alt text](screenshots/app-flow.jpeg)
+
+## Project Structure
+Summarai uses a de-coupled application architecture with the React frontend and FastAPI backend in their own dedicated folders. Both services contain their own Dockerfiles and set of automated tests. The project root has a Docker Compose file used to run the services together
+
+```
+.
+├── web-frontend/
+│   ├── src/
+│   │   ├── api/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   └── App.jsx
+│   ├── tests/
+│   │   ├── components/
+│   │   ├── App.test.jsx
+│   │   └── setup.js
+│   ├── Dockerfile
+│   └── package.json
+├── backend/
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── routers/
+│   │   ├── schemas/
+│   │   ├── utils/
+│   │   └── main.py
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   ├── test_routes.py
+│   │   └── test_services.py
+│   ├── .env.example
+│   ├── requirements.txt
+│   └── Dockerfile
+├── .github/
+│   └── workflows/
+│       └── tests.yml
+├── .gitignore
+├── docker-compose.yml
+└── README.md
+```
 
 ## Testing
-
 Summarai uses [Pytest](https://docs.pytest.org/en/stable/) for backend testing and [Vitest](https://vitest.dev/) for frontend testing.
 
 Tests are also automatically ran through GitHub Actions when pull requests are opened, and again when changes are pushed to the repository.
-
-
-## Project Structure
-
 
