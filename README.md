@@ -1,6 +1,13 @@
 # Summarai
 
+![alt text](screenshots/home-page.png)
+
 Summarai is an AI text summarization tool used to condense large bodies of text into three sentences.
+
+## Features
+
+- AI-Powered text summarization
+- Copy the generated summary directly to your clipboard
 
 ## Tech Stack
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge\&logo=react\&logoColor=61DAFB)](https://react.dev/)
@@ -54,6 +61,7 @@ Summarai is an AI text summarization tool used to condense large bodies of text 
 6. Paste your Groq API key into the ```GROQ_API_KEY``` field, then save the ```.env``` file
 
     - Example
+
         ```GROQ_API_KEY=123your456groq789api101112key```
 
 ### Running the Application
@@ -62,9 +70,24 @@ Summarai is an AI text summarization tool used to condense large bodies of text 
 
     ```docker compose up -d --build```
 
-2. Open a web browser and go to the following URL
+2. Go to the following URL in your web browser
 
     [http://localhost:8080/](http://localhost:8080/)
 
 You should now see the Summarai Web App
+
+## How it Works
+Summarai uses a React frontend, a FastAPI backend, and the Groq API to generate summaries in the form of three bullet point sentences. When a user submits text, the frontend sends it to the backend in a POST request. The backend then processes the request and send the user's text to Groq. The text is summarized using the OpenAI's GPT OSS 120B model and returns the summary back to the frontend and displayed to the user. 
+
+![alt text](image.png)
+
+## Testing
+
+Summarai uses [Pytest](https://docs.pytest.org/en/stable/) for backend testing and [Vitest](https://vitest.dev/) for frontend testing.
+
+Tests are also automatically ran through GitHub Actions when pull requests are opened, and again when changes are pushed to the repository.
+
+
+## Project Structure
+
 

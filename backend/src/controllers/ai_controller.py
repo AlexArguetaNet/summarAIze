@@ -13,7 +13,7 @@ async def prompt_gpt(text: TextRequest) -> dict:
         Summarizes text into three bullet points using GPT OSS 20B via the Groq API.
 
         Validates the character count of text is at least 250. A chat completion request
-        is sent to OpenAI's GPT OSS 20B model hosted on Groq Cloud and the chat response
+        is sent to OpenAI's GPT OSS 120B model hosted on Groq Cloud and the chat response
         is returned. Exceptions from the Groq package are caught and translated into
         FastAPI HTTPExceptions.
 
