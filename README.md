@@ -26,11 +26,15 @@ Summarai is an AI text summarization tool used to condense large bodies of text 
 
 ## Getting Started
 
-### Prerequisites
+### Using Docker (Recommended)
+The quickest way to run Summarai is with Docker Compose
+
+#### Prerequisites
 - Docker
 - Docker Compose
+- A Groq API key
 
-### Installation
+#### Installation
 1. Get a Groq API Key from the [Groq Console](https://console.groq.com)
 2. Clone the repository
 3. Move into the repository directory
@@ -62,17 +66,23 @@ Summarai is an AI text summarization tool used to condense large bodies of text 
 
         ```GROQ_API_KEY=123your456groq789api101112key```
 
-### Running the Application
-
-1. Use Docker Compose to start running Summarai
+7. Use Docker Compose to start running Summarai
 
     ```docker compose up -d --build```
 
-2. Go to the following URL in your web browser
+8. Go to the following URL in your web browser
 
     [http://localhost:8080/](http://localhost:8080/)
 
-You should now see the Summarai Web App
+### Running Locally
+You can also run Summarai directly on your machine if you'd like
+
+#### Prerequisites
+
+- Node.js
+- Python 3.12
+- A Groq API Key
+
 
 ## How it Works
 Summarai uses a React frontend, a FastAPI backend, and the Groq API to generate summaries in the form of three bullet point sentences. When a user submits text, the frontend sends it to the backend in a POST request. The backend then processes the request and send the user's text to Groq. The text is summarized using the OpenAI's GPT OSS 120B model and returns the summary back to the frontend and displayed to the user. 
