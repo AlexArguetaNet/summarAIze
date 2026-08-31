@@ -152,18 +152,32 @@ The backend should now be running at:
     cd web-frontend
     ```
 
-2. Install the frontend dependencies:
+2. Create a ```.env``` file from the example provided
+
+    - Windows:
+
+        ```
+        Copy-Item .env.example .env
+        ```
+
+    - macOS/Linux:
+
+        ```
+        cp .env.example .env
+        ```
+
+3. Install the frontend dependencies:
 
     ```
     npm install
     ```
 
-3. Start the Vite development server:
+4. Start the Vite development server:
 
     ```
     npm run dev
     ```
-4. Open a web browser and go to the following URL:
+5. Open a web browser and go to the following URL:
 
     [http://localhost:5173](http://localhost:5173)
 
