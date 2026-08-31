@@ -26,53 +26,162 @@ Summarai is an AI text summarization tool used to condense large bodies of text 
 
 ## Getting Started
 
-### Prerequisites
-- Docker
-- Docker Compose
-
-### Installation
 1. Get a Groq API Key from the [Groq Console](https://console.groq.com)
 2. Clone the repository
-3. Move into the repository directory
+3. Navigate into the repository directory:
 
-    ```cd summarai ```
-4. Copy the contents of ```.env.example``` to a file called ```.env```
+    ```
+    cd summarai
+    ```
 
-    - Windows
+### Run using Docker (Recommended)
+The quickest way to run Summarai is with Docker Compose
 
-        ```Copy-Item backend/.env.example backend/.env```
+#### Prerequisites
+- Docker
+- Docker Compose
+- A Groq API key
 
-    - Linux
 
-        ```cp backend/.env.example backend/.env ```
 
-5. Open the ```.env``` file in a text editor
+#### Installation
+1. Copy the contents of ```backend/.env.example``` to a file called ```backend/.env```
 
-    - Windows
+    - Windows:
 
-        ```Notepad backend/.env```
-    
-    - Linux
+        ```
+        Copy-Item backend/.env.example backend/.env
+        ```
 
-        ```nano backend/.env```
+    - macOS/Linux:
 
-6. Paste your Groq API key into the ```GROQ_API_KEY``` field, then save the ```.env``` file
+        ```
+        cp backend/.env.example backend/.env 
+        ```
 
-    - Example
+2. Open the ```.env``` file in any text editor and add your Groq API key to the variable ```GROQ_API_KEY```
+   
+    ```GROQ_API_KEY=yourAPIkey```
 
-        ```GROQ_API_KEY=123your456groq789api101112key```
+3. Use Docker Compose to start running Summarai:
 
-### Running the Application
+    ```
+    docker compose up -d --build
+    ```
 
-1. Use Docker Compose to start running Summarai
-
-    ```docker compose up -d --build```
-
-2. Go to the following URL in your web browser
+4. Go to the following URL in your web browser:
 
     [http://localhost:8080/](http://localhost:8080/)
 
-You should now see the Summarai Web App
+<b>Summarai should now be displayed and ready to use.</b>
+
+### Run on your Computer
+You can also run Summarai directly on your machine if you'd like
+
+#### Prerequisites
+
+- Node.js
+- Python 3.12
+- A Groq API Key
+
+#### Installation
+
+<u>Setup the Backend</u>
+
+1. Navigate to the backend directory
+
+    ```
+    cd backend
+    ```
+
+2. Create a ```.env``` file from the example provided
+
+    - Windows:
+
+        ```
+        Copy-Item .env.example .env
+        ```
+
+    - macOS/Linux:
+
+        ```
+        cp .env.example .env
+        ```
+
+3. Open the ```.env``` file in any text editor and add your Groq API key to the variable ```GROQ_API_KEY```
+   
+    ```GROQ_API_KEY=yourAPIkey```
+
+4. Create a Python virtual environment and activate it
+
+    - Windows:
+
+        ```
+            python -m venv .venv
+            .venv\Scripts\Activate.ps1    
+        ```
+
+    - macOS/Linux:
+
+        ```
+            python3 -m venv .venv
+            source .venv/bin/activate    
+        ```
+
+5. Install the backend dependencies
+
+    ```
+    pip install -r requirements.txt
+    ```
+
+6. Start the FastAPI development server
+
+    ```
+    fastapi dev
+    ```
+
+The backend should now be running at:
+
+    http://localhost:8000
+
+<u>Setup the Frontend</u>
+
+1. Open a new terminal and navigate to the web frontend directory:
+
+    ```
+    cd web-frontend
+    ```
+
+2. Create a ```.env``` file from the example provided
+
+    - Windows:
+
+        ```
+        Copy-Item .env.example .env
+        ```
+
+    - macOS/Linux:
+
+        ```
+        cp .env.example .env
+        ```
+
+3. Install the frontend dependencies:
+
+    ```
+    npm install
+    ```
+
+4. Start the Vite development server:
+
+    ```
+    npm run dev
+    ```
+5. Open a web browser and go to the following URL:
+
+    [http://localhost:5173](http://localhost:5173)
+
+<b>Summarai should now be displayed and ready to use.</b>
 
 ## How it Works
 Summarai uses a React frontend, a FastAPI backend, and the Groq API to generate summaries in the form of three bullet point sentences. When a user submits text, the frontend sends it to the backend in a POST request. The backend then processes the request and send the user's text to Groq. The text is summarized using the OpenAI's GPT OSS 120B model and returns the summary back to the frontend and displayed to the user. 
