@@ -5,6 +5,7 @@ import { useState } from "react"
 import { fetchSummary } from "./api/summary"
 import { Alert, AlertTitle, AlertDescription, AlertAction } from "./components/ui/alert"
 import { AlertCircleIcon } from "lucide-react"
+import Home from "./components/Home"
 
 function App() {
 
@@ -66,68 +67,86 @@ function App() {
   }
 
   return (
-    <>
-      <div className="mx-auto my-7 max-w-[700px] p-4 bg-gray-50 shadow-md">
-        <h1 className="flex align-middle text-4xl pb-5">SummarAIze</h1>
 
-        {/* Will render if there are errors */}
-        {
-          errorExists && 
-            <Alert variant="destructive">
-              <AlertCircleIcon />
-              <AlertTitle>Error</AlertTitle>
-              <AlertDescription className="text-black!">{errorDescription}</AlertDescription>
-              <AlertAction>
-                <Button onClick={() => setErrorExists(false)} size="xs" className="bg-red-400">
-                  X
-                </Button>
-              </AlertAction>
-            </Alert>
-        }
+    <Home />
 
-        <form onSubmit={(e) => handleClick(e)}>
-          <Textarea 
-            className="h-72 resize-none text-xl mt-1" 
-            placeholder="Enter your text here" 
-            value={text}
-            onChange={(e) => handleTextChange(e.target.value)}
-            required
-          />
 
-          <div className="flex justify-between py-5">
-            <Button type="submit" disabled={disableButton} className="bg-green-400 text-black">Summarize</Button>
-            <p>Character count | {charCount}</p>
-          </div>
 
-        </form>
 
-        <div className="flex justify-center">
-          {
-            isLoading && <Spinner className="size-7" />
-          }
-          {
-            summaryArr.length > 0 && 
-              <div className="">
-                <div className="px-10">
-                  {
-                    summaryArr.map((elem, index) => (
-                      <li key={index}>{elem}</li>
-                    ))
-                  }
-                </div>
-                <div className="flex justify-end mt-5">
+
+
+
+
+
+
+
+
+
+
+
+  //   <>
+  //     <div className="mx-auto my-7 max-w-[700px] p-4 bg-gray-50 shadow-md">
+  //       <h1 className="flex align-middle text-4xl pb-5">SummarAIze</h1>
+
+  //       {/* Will render if there are errors */}
+  //       {
+  //         errorExists && 
+  //           <Alert variant="destructive">
+  //             <AlertCircleIcon />
+  //             <AlertTitle>Error</AlertTitle>
+  //             <AlertDescription className="text-black!">{errorDescription}</AlertDescription>
+  //             <AlertAction>
+  //               <Button onClick={() => setErrorExists(false)} size="xs" className="bg-red-400">
+  //                 X
+  //               </Button>
+  //             </AlertAction>
+  //           </Alert>
+  //       }
+
+  //       <form onSubmit={(e) => handleClick(e)}>
+  //         <Textarea 
+  //           className="h-72 resize-none text-xl mt-1" 
+  //           placeholder="Enter your text here" 
+  //           value={text}
+  //           onChange={(e) => handleTextChange(e.target.value)}
+  //           required
+  //         />
+
+  //         <div className="flex justify-between py-5">
+  //           <Button type="submit" disabled={disableButton} className="bg-green-400 text-black">Summarize</Button>
+  //           <p>Character count | {charCount}</p>
+  //         </div>
+
+  //       </form>
+
+  //       <div className="flex justify-center">
+  //         {
+  //           isLoading && <Spinner className="size-7" />
+  //         }
+  //         {
+  //           summaryArr.length > 0 && 
+  //             <div className="">
+  //               <div className="px-10">
+  //                 {
+  //                   summaryArr.map((elem, index) => (
+  //                     <li key={index}>{elem}</li>
+  //                   ))
+  //                 }
+  //               </div>
+  //               <div className="flex justify-end mt-5">
                   
-                  {isCopied && <p>Copied!</p>}
-                  <Button onClick={handleCopy}>Copy</Button>
-                  <Button onClick={handleClear} className="bg-green-400 text-black">New</Button>
-                </div>
-              </div>
-          }
-        </div>
+  //                 {isCopied && <p>Copied!</p>}
+  //                 <Button onClick={handleCopy}>Copy</Button>
+  //                 <Button onClick={handleClear} className="bg-green-400 text-black">New</Button>
+  //               </div>
+  //             </div>
+  //         }
+  //       </div>
 
-      </div>
-    </>
+  //     </div>
+  //   </>
   )
+
 }
 
 export default App
