@@ -1,7 +1,7 @@
-# Summarai
+# SummarAIze
 ![alt text](screenshots/home-page.png)
 
-Summarai is an AI text summarization tool used to condense large bodies of text into three sentences.
+SummarAIze is an AI text summarization tool used to condense large bodies of text into three sentences.
 
 ## Features
 - AI-Powered text summarization
@@ -31,11 +31,11 @@ Summarai is an AI text summarization tool used to condense large bodies of text 
 3. Navigate into the repository directory:
 
     ```
-    cd summarai
+    cd summaraize
     ```
 
 ### Run using Docker (Recommended)
-The quickest way to run Summarai is with Docker Compose
+The quickest way to run SummarAIze is with Docker Compose
 
 #### Prerequisites
 - Docker
@@ -63,7 +63,7 @@ The quickest way to run Summarai is with Docker Compose
    
     ```GROQ_API_KEY=yourAPIkey```
 
-3. Use Docker Compose to start running Summarai:
+3. Use Docker Compose to start running SummarAIze:
 
     ```
     docker compose up -d --build
@@ -73,10 +73,10 @@ The quickest way to run Summarai is with Docker Compose
 
     [http://localhost:8080/](http://localhost:8080/)
 
-<b>Summarai should now be displayed and ready to use.</b>
+<b>SummarAIze should now be displayed and ready to use.</b>
 
 ### Run on your Computer
-You can also run Summarai directly on your machine if you'd like
+You can also run SummarAIze directly on your machine if you'd like
 
 #### Prerequisites
 
@@ -181,15 +181,15 @@ The backend should now be running at:
 
     [http://localhost:5173](http://localhost:5173)
 
-<b>Summarai should now be displayed and ready to use.</b>
+<b>SummarAIze should now be displayed and ready to use.</b>
 
 ## How it Works
-Summarai uses a React frontend, a FastAPI backend, and the Groq API to generate summaries in the form of three bullet point sentences. When a user submits text, the frontend sends it to the backend in a POST request. The backend then processes the request and send the user's text to Groq. The text is summarized using the OpenAI's GPT OSS 120B model and returns the summary back to the frontend and displayed to the user. 
+SummarAIze uses a React frontend, a FastAPI backend, and the Groq API to generate summaries in the form of three bullet point sentences. When a user submits text, the frontend sends it to the backend in a POST request. The backend then processes the request and send the user's text to Groq. The text is summarized using the OpenAI's GPT OSS 120B model and returns the summary back to the frontend and displayed to the user. 
 
 ![alt text](screenshots/app-flow.jpeg)
 
 ## Project Structure
-Summarai uses a de-coupled application architecture with the React frontend and FastAPI backend in their own dedicated folders. Both services contain their own Dockerfiles and set of automated tests. The project root has a Docker Compose file used to run the services together
+A decoupled application architecture is used, with the React frontend and FastAPI backend in their own dedicated folders. Both services contain their own Dockerfiles and set of automated tests. The project root has a Docker Compose file used to run the services together
 
 ```
 .
@@ -228,7 +228,7 @@ Summarai uses a de-coupled application architecture with the React frontend and 
 ```
 
 ## Testing
-Summarai uses [Pytest](https://docs.pytest.org/en/stable/) for backend testing and [Vitest](https://vitest.dev/) for frontend testing.
+The project uses [Pytest](https://docs.pytest.org/en/stable/) for backend testing and [Vitest](https://vitest.dev/) for frontend testing.
 
 Tests are also automatically ran through GitHub Actions when pull requests are opened, and again when changes are pushed to the repository.
 

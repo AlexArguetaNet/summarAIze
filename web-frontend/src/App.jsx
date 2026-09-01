@@ -2,7 +2,6 @@ import { Button } from "./components/ui/button"
 import { Textarea } from "./components/ui/textarea"
 import { Spinner } from "./components/ui/spinner"
 import { useState } from "react"
-import { GiSamuraiHelmet } from "react-icons/gi"
 import { fetchSummary } from "./api/summary"
 import { Alert, AlertTitle, AlertDescription, AlertAction } from "./components/ui/alert"
 import { AlertCircleIcon } from "lucide-react"
@@ -69,7 +68,7 @@ function App() {
   return (
     <>
       <div className="mx-auto my-7 max-w-[700px] p-4 bg-gray-50 shadow-md">
-        <h1 className="flex align-middle text-4xl pb-5">Summarai <GiSamuraiHelmet /></h1>
+        <h1 className="flex align-middle text-4xl pb-5">SummarAIze</h1>
 
         {/* Will render if there are errors */}
         {
