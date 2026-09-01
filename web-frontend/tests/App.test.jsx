@@ -15,8 +15,8 @@ describe("App", () => {
     test("renders the app", () => {
         render(<App />); // Render App component in simulated DOM
 
-        // Look for th string "summarai" in the simulated DOM and check result
-        expect(screen.getByText(/summarai/i)).toBeInTheDocument();
+        // Look for th string "SummarAIze" in the simulated DOM and check result
+        expect(screen.getByText(/SummarAIze/i)).toBeInTheDocument();
     });
 
     test("increments the character counter when text is entered", async () => {
