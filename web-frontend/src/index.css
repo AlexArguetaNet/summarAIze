@@ -12,6 +12,9 @@
 
 @theme {
   --color-custom: #ffffff;
+  --glass-bg-light: rgba(255, 255, 255, 0.15);
+  --glass-border-light: rgba(255, 255, 255, 0.25);
+  --color-theme-dark: rgba(30, 30, 30, 0.82); 
 }
 
 @custom-variant dark (&:is(.dark *));
