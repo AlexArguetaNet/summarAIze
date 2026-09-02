@@ -14,8 +14,8 @@ function Home() {
 
         <div className='flex justify-end'>
           <Tabs defaultValue="url" className="">
-            <TabsList>
-              <TabsTrigger onClick={() => setUsingUrl(true)} value="url">URL</TabsTrigger>
+            <TabsList variant='line'>
+              <TabsTrigger onClick={() => setUsingUrl(true)} value="url">Url</TabsTrigger>
               <TabsTrigger onClick={() => setUsingUrl(false)} value="paragraph">Paragraph</TabsTrigger>
             </TabsList>
           </Tabs>
