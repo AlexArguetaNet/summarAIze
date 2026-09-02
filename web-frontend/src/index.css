@@ -10,6 +10,10 @@
   }
 }
 
+@theme {
+  --color-custom: #ffffff;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
