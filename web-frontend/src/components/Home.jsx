@@ -9,10 +9,12 @@ function Home() {
   const [usingUrl, setUsingUrl] = useState(true);
   const [textInput, setTextInput] = useState("");
 
-  function handleTextSwitch() {
-    if (usingUrl) {
+  function handleTextSwitch(clickedUrlButton) {
+    if (usingUrl && !clickedUrlButton) {
       setUsingUrl(false);
-    } else {
+    } 
+
+    if (!usingUrl && clickedUrlButton) {
       setUsingUrl(true);
     }
 
@@ -27,8 +29,8 @@ function Home() {
         <div className='flex justify-end'>
           <Tabs defaultValue="url" className="">
             <TabsList variant='line'>
-              <TabsTrigger onClick={handleTextSwitch} value="url">Url</TabsTrigger>
-              <TabsTrigger onClick={handleTextSwitch} value="paragraph">Paragraph</TabsTrigger>
+              <TabsTrigger onClick={() => handleTextSwitch(true)} value="url">Url</TabsTrigger>
+              <TabsTrigger onClick={() => handleTextSwitch(false)} value="paragraph">Paragraph</TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
