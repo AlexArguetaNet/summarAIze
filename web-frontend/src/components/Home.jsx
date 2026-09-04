@@ -42,8 +42,10 @@ function Home() {
           }
         </div>
 
-        <Button size="lg" variant="outline" className="bg-green-200/50 hover:bg-green-500/50" >Submit</Button>
-
+        <div className='flex justify-between items-center text-lg'>
+          <Button size="lg" variant="outline" className="bg-green-200/50 hover:bg-green-500/50" >Submit</Button>
+          { !usingUrl && <p>Characters | {textInput.replace(/ /g, "").length}</p> }
+        </div>
 
       </div>
 
