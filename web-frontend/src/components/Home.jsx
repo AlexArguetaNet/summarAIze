@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 
 function Home() {
 
-  const [usingUrl, setUsingUrl] = useState(true);
+  const [usingUrl, setUsingUrl] = useState(false);
   const [textInput, setTextInput] = useState("");
 
   function handleTextSwitch(clickedUrlButton) {
@@ -27,10 +27,10 @@ function Home() {
       <div className='w-full m-5'>
 
         <div className='flex justify-end'>
-          <Tabs defaultValue="url" className="">
+          <Tabs defaultValue="paragraph" className="">
             <TabsList variant='line'>
-              <TabsTrigger onClick={() => handleTextSwitch(true)} value="url">Url</TabsTrigger>
               <TabsTrigger onClick={() => handleTextSwitch(false)} value="paragraph">Paragraph</TabsTrigger>
+              <TabsTrigger onClick={() => handleTextSwitch(true)} value="url">Url</TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
