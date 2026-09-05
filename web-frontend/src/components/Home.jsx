@@ -50,7 +50,7 @@ function Home() {
 
   return (
 
-    <div className="bg-(--glass-bg-light) backdrop-blur-xl border border-(--glass-border-light) rounded-4xl h-[500px] mx-auto w-[70%] max-w-[900px] flex justify-center">
+    <div className="bg-(--glass-bg-light) backdrop-blur-xl border border-(--glass-border-light) rounded-4xl h-fit mx-auto w-[70%] max-w-[900px] flex justify-center">
       <div className='w-full m-5'>
 
         <div className='flex justify-end'>
@@ -63,32 +63,37 @@ function Home() {
         </div>
 
         <form onSubmit={(e) => handleSubmit(e)}>
-          <div className='h-90'>
+          <div className='h-fit'>
             {
               isParagraph ? <Textarea value={textInput} onChange={(e) => setTextInput(e.target.value)} className="bg-textarea-bg text-black! text-xl! placeholder:text-black! mt-5 h-75 resize-none border border-white/50 focus-visible:border-[#ffffff] focus-visible:ring-0" placeholder="Enter your text here ..." required />
                           : <Textarea value={textInput} onChange={(e) => setTextInput(e.target.value)} className="bg-textarea-bg text-black! text-xl! placeholder:text-black! mt-5 resize-none border border-white/50 focus-visible:border-[#ffffff] focus-visible:ring-0" placeholder="Enter your url here ..." required />              
             }
-          </div>
-
-          <div className='flex justify-between items-center text-lg'>
-            <Button type="submit" size="lg" variant="outline" disabled={disableButton} className="bg-green-200/50 hover:bg-green-500/50" >Submit</Button>
-            <div>
-              { isLoading && <Spinner className="size-7" />}
-              {
-                summaryArr.length > 0 &&
-                  <div>
-                    {
-                      summaryArr.map((elem, index) => (
-                        <li key={index}>{elem}</li>
-                      ))
-                    }
-                  </div>
-              }
+            <div className='flex justify-between items-center my-10'>
+              <Button type="submit" size="lg" variant="outline" disabled={disableButton} className="bg-green-200/50 hover:bg-green-500/50" >Submit</Button>
+              { isParagraph ? <p>Characters | {textInput.replace(/ /g, "").length}</p> : <div className='w-29'></div> }
             </div>
-            { isParagraph ? <p>Characters | {textInput.replace(/ /g, "").length}</p> : <div className='w-29'></div> }
           </div>
         </form>
 
+        <div className='flex justify-center text-lg'>
+          <div>
+            {/* <Spinner className="size-7" /> */}
+            { isLoading && <Spinner className="size-7" />}
+            {
+              summaryArr.length > 0 &&
+                <ul>
+                  {
+                    summaryArr.map((elem, index) => (
+                      <>
+                        <li key={index}>&#8226; {elem}</li>
+                        <br />
+                      </>
+                    ))
+                  }
+                </ul>
+            }
+          </div>
+        </div>
 
       </div>
     </div>
