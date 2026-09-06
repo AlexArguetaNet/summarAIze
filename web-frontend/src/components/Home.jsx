@@ -77,20 +77,22 @@ function Home() {
 
         <div className='flex justify-center text-lg'>
           <div>
-            {/* <Spinner className="size-7" /> */}
             { isLoading && <Spinner className="size-7" />}
             {
               summaryArr.length > 0 &&
-                <ul>
-                  {
-                    summaryArr.map((elem, index) => (
-                      <>
+                <div>
+                  <ul className='space-y-10'>
+                    {
+                      summaryArr.map((elem, index) => (
                         <li key={index}>&#8226; {elem}</li>
-                        <br />
-                      </>
-                    ))
-                  }
-                </ul>
+                      ))
+                    }
+                  </ul>
+                  <div className='flex justify-center mt-10'>
+                    <Button className="w-50">Copy</Button>
+                    <Button className="w-50">Clear</Button>
+                  </div>
+                </div>
             }
           </div>
         </div>
