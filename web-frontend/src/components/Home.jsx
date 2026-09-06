@@ -16,12 +16,28 @@ function Home() {
   const [disableButton, setDisableButton] = useState(false);
   const [errorExists, setErrorExists] = useState(false);
   const [errorDescription, setErrorDescription] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
 
   function handleTextSwitch(clickedParaTab) {
     if (!clickedParaTab && isParagraph) setIsParagraph(false);
     if (clickedParaTab && !isParagraph) setIsParagraph(true);
 
     setTextInput("");
+  }
+
+  function handleClear() {
+    setTextInput("");
+    setSummaryArr([]);
+    setSummaryStr("");
+  }
+
+  async function handleCopy() {
+    await navigator.clipboard.writeText(summaryStr);
+    setIsCopied(true);
+    
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1000);
   }
 
   async function handleSubmit(e) { 
@@ -89,8 +105,10 @@ function Home() {
                     }
                   </ul>
                   <div className='flex justify-center mt-10'>
-                    <Button className="w-50">Copy</Button>
-                    <Button className="w-50">Clear</Button>
+                    <Button onClick={handleCopy} className={`w-50 transition-all duration-300 ${ isCopied ? "bg-green-200 hover:bg-green-200 text-black shadow-lg" : ""}`}>
+                      { isCopied ? "Copied" : "Copy" }
+                    </Button>
+                    <Button className="w-50" onClick={handleClear} >Clear</Button>
                   </div>
                 </div>
             }
