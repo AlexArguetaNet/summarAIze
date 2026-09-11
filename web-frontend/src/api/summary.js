@@ -7,8 +7,6 @@ export const fetchSummary = async (text) => {
     try {
         const res = await axios.post(`${API_PREFIX}/summarize`, { text });
 
-        console.log(`${API_PREFIX}/summarize`);
-
         // Format summary string
         const summaryString = res.data.summary
             .split('\n')                                 // Split into array, before every new line
