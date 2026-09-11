@@ -4,13 +4,13 @@ import { Textarea } from './ui/textarea'
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { fetchSummary } from '@/api/summary'
-import { Spinner } from "../components/ui/spinner"
+import { Spinner } from "./ui/spinner"
 import { MdContentCopy } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { Alert, AlertTitle, AlertDescription, AlertAction } from "@/components/ui/alert"
 import { MdErrorOutline } from "react-icons/md";
 
-function Home() {
+function Summarizer() {
 
   const [isParagraph, setIsParagraph] = useState(true);
   const [textInput, setTextInput] = useState("");
@@ -139,4 +139,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Summarizer
