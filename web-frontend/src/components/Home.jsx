@@ -7,6 +7,8 @@ import { fetchSummary } from '@/api/summary'
 import { Spinner } from "../components/ui/spinner"
 import { MdContentCopy } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
+import { Alert, AlertTitle, AlertDescription, AlertAction } from "@/components/ui/alert"
+import { MdErrorOutline } from "react-icons/md";
 
 function Home() {
 
@@ -68,7 +70,7 @@ function Home() {
 
   return (
 
-    <div className="bg-(--glass-bg-light) backdrop-blur-xl border border-(--glass-border-light) rounded-4xl h-fit mx-auto w-[70%] max-w-[900px] flex justify-center">
+    <div className="bg-(--glass-bg-light) backdrop-blur-xl border border-(--glass-border-light) rounded-xl h-fit mx-auto w-[70%] max-w-[900px] flex justify-center">
       <div className='w-full m-5'>
 
         <div className='flex justify-end'>
@@ -80,11 +82,25 @@ function Home() {
           </Tabs>
         </div>
 
+        {
+          errorExists &&
+            <Alert variant="destructive" className="mt-4 bg-red-300/50">
+              <MdErrorOutline className="text-red-800!" />
+              <AlertTitle className="text-red-800">Error</AlertTitle>
+              <AlertDescription className="text-black!">{errorDescription}</AlertDescription>
+              <AlertAction>
+                <Button onClick={() => setErrorExists(false)} size="xs" className="bg-red-800">
+                  X
+                </Button>
+              </AlertAction>              
+            </Alert>
+        }
+
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className='h-fit'>
             {
-              isParagraph ? <Textarea value={textInput} onChange={(e) => setTextInput(e.target.value)} className="bg-textarea-bg text-black! text-xl! placeholder:text-black! mt-5 h-75 resize-none border border-white/50 focus-visible:border-[#ffffff] focus-visible:ring-0" placeholder="Enter your text here ..." required />
-                          : <Textarea value={textInput} onChange={(e) => setTextInput(e.target.value)} className="bg-textarea-bg text-black! text-xl! placeholder:text-black! mt-5 resize-none border border-white/50 focus-visible:border-[#ffffff] focus-visible:ring-0" placeholder="Enter your url here ..." required />              
+              isParagraph ? <Textarea value={textInput} onChange={(e) => setTextInput(e.target.value)} className="bg-textarea-bg text-black! text-lg! placeholder:text-black! mt-5 h-75 resize-none border border-white/50 focus-visible:border-[#ffffff] focus-visible:ring-0" placeholder="Enter your text here ..." required />
+                          : <Textarea value={textInput} onChange={(e) => setTextInput(e.target.value)} className="bg-textarea-bg text-black! text-lg! placeholder:text-black! mt-5 resize-none border border-white/50 focus-visible:border-[#ffffff] focus-visible:ring-0" placeholder="Enter your url here ..." required />              
             }
             <div className='flex justify-between items-center my-10'>
               <Button type="submit" size="lg" variant="outline" disabled={disableButton} className="bg-green-200/50 hover:bg-green-500/50" >Submit</Button>
