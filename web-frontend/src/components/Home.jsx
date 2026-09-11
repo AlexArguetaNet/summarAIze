@@ -5,6 +5,8 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { fetchSummary } from '@/api/summary'
 import { Spinner } from "../components/ui/spinner"
+import { MdContentCopy } from "react-icons/md";
+import { MdDeleteOutline } from "react-icons/md";
 
 function Home() {
 
@@ -107,8 +109,9 @@ function Home() {
                   <div className='flex justify-center mt-10'>
                     <Button onClick={handleCopy} className={`w-50 transition-all duration-300 ${ isCopied ? "bg-green-200 hover:bg-green-200 text-black shadow-lg" : ""}`}>
                       { isCopied ? "Copied" : "Copy" }
+                      <MdContentCopy />
                     </Button>
-                    <Button className="w-50" onClick={handleClear} >Clear</Button>
+                    <Button className="w-50" onClick={handleClear} >Clear <MdDeleteOutline /></Button>
                   </div>
                 </div>
             }
