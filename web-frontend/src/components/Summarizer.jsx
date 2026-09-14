@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { fetchSummary } from '@/api/summary'
 import { Spinner } from "./ui/spinner"
 import { MdContentCopy } from "react-icons/md";
-import { MdDeleteOutline } from "react-icons/md";
+import { FaRegTrashAlt } from "react-icons/fa";
 import { Alert, AlertTitle, AlertDescription, AlertAction } from "@/components/ui/alert"
 import { MdErrorOutline } from "react-icons/md";
 
@@ -99,12 +99,24 @@ function Summarizer() {
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className='h-fit'>
             {
-              isParagraph ? <Textarea value={textInput} onChange={(e) => setTextInput(e.target.value)} className="bg-textarea-bg text-black! text-lg! placeholder:text-black! mt-5 h-75 resize-none border border-white/50 focus-visible:border-[#ffffff] focus-visible:ring-0" placeholder="Enter your text here ..." required />
-                          : <Textarea value={textInput} onChange={(e) => setTextInput(e.target.value)} className="bg-textarea-bg text-black! text-lg! placeholder:text-black! mt-5 resize-none border border-white/50 focus-visible:border-[#ffffff] focus-visible:ring-0" placeholder="Enter your url here ..." required />              
+              isParagraph ? 
+                <Textarea value={textInput} onChange={(e) => setTextInput(e.target.value)} className="bg-textarea-bg text-black! text-lg! placeholder:text-black! mt-5 h-75 resize-none border border-white/50 focus-visible:border-[#ffffff] focus-visible:ring-0" placeholder="Enter your text here ..." required />
+              : 
+                <Textarea value={textInput} onChange={(e) => setTextInput(e.target.value)} className="bg-textarea-bg text-black! text-lg! placeholder:text-black! mt-5 resize-none border border-white/50 focus-visible:border-[#ffffff] focus-visible:ring-0" placeholder="Enter your url here ..." required />              
             }
             <div className='flex justify-between items-center my-10'>
               <Button type="submit" size="lg" variant="outline" disabled={disableButton} className="bg-green-200/50 hover:bg-green-500/50" >Submit</Button>
-              { isParagraph ? <p>Characters | {textInput.replace(/ /g, "").length}</p> : <div className='w-29'></div> }
+              <div className='flex items-center space-x-7'>
+                { 
+                  isParagraph ? 
+                    <p>Characters | {textInput.replace(/ /g, "").length}</p> 
+                  : 
+                    <div className='w-29'></div> }
+                { 
+                  summaryArr.length == 0 && 
+                    <Button size='lg' variant='outline' disabled={disableButton} onClick={handleClear}><FaRegTrashAlt /></Button>
+                }
+              </div>
             </div>
           </div>
         </form>
@@ -127,7 +139,7 @@ function Summarizer() {
                       { isCopied ? "Copied" : "Copy" }
                       <MdContentCopy />
                     </Button>
-                    <Button className="w-50" onClick={handleClear} >Clear <MdDeleteOutline /></Button>
+                    <Button className="w-50" onClick={handleClear} >Clear <FaRegTrashAlt /></Button>
                   </div>
                 </div>
             }
