@@ -51,7 +51,7 @@ function Summarizer() {
     setDisableButton(true); // Disable submit button
 
     try {
-      const summary = await fetchSummary(textInput);
+      const summary = await fetchSummary(textInput, isParagraph);
       setSummaryArr(summary.summaryArray);
       setSummaryStr(summary.summaryString);
       setErrorExists(false)
