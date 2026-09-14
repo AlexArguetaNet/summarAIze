@@ -1,5 +1,5 @@
 from fastapi import HTTPException, status
-from src.schemas.text_request import TextRequest
+from src.schemas.summary_request import SummaryRequest
 from groq import Groq
 from groq import (APIConnectionError, RateLimitError, APIStatusError)
 from src.utils.env_variables import get_api_key
@@ -8,9 +8,9 @@ from src.utils.env_variables import get_api_key
 API_KEY = get_api_key()
 client = Groq(api_key=API_KEY)
 
-async def prompt_gpt(text: TextRequest) -> dict:
+async def prompt_gpt(text: SummaryRequest) -> dict:
     """
-        Summarizes text into three bullet points using GPT OSS 20B via the Groq API.
+        Summarizes plain text into three bullet points using GPT OSS 20B via the Groq API.
 
         Validates the character count of text is at least 250. A chat completion request
         is sent to OpenAI's GPT OSS 120B model hosted on Groq Cloud and the chat response
@@ -30,7 +30,7 @@ async def prompt_gpt(text: TextRequest) -> dict:
             HTTPException: 500 Internal Server Error - unexpected backend failures
 
     """
-    textNoSpaces = text.text.strip()
+    textNoSpaces = text.strip()
 
     # Check if input is only whitespace
     isOnlySpaces = len(textNoSpaces) == 0
@@ -42,11 +42,11 @@ async def prompt_gpt(text: TextRequest) -> dict:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Text is only numbers. Please enter words.")
 
     # Check if the text is reasonably long enough to summarize
-    if len(text.text) < 250:
+    if len(text) < 250:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Text must be at least 250 characters long.")
 
     # Check if the input text has exceeded the maximum character count of 25,000
-    if len(text.text) > 25000:
+    if len(text) > 25000:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Maximum text length reached. Text should be less than 25000 characters.")
 
     try:
@@ -58,7 +58,7 @@ async def prompt_gpt(text: TextRequest) -> dict:
             messages = [
                 {
                     "role": "user",
-                    "content": f"{prompt}{text.text}",
+                    "content": f"{prompt}{text}",
                 }
             ],
         )
