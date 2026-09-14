@@ -1,27 +1,17 @@
 from src.schemas.summary_request import SummaryRequest
 from src.utils.ai import prompt_gpt
+from src.utils.web_extractor import extract_web_text
 
-async def get_text_summary(text: SummaryRequest) -> dict:
+async def get_text_summary(req: SummaryRequest) -> dict:
+    res = await prompt_gpt(req.text)
+    return res
+
+async def get_url_summary(req: SummaryRequest) -> dict:
     """
-        Summarizes plain text into three bullet points using GPT OSS 20B via the Groq API.
-
-        Validates the character count of text is at least 250. A chat completion request
-        is sent to OpenAI's GPT OSS 120B model hosted on Groq Cloud and the chat response
-        is returned. Exceptions from the Groq package are caught and translated into
-        FastAPI HTTPExceptions.
-
-        Args:
-            text (TextRequest): Pydantic request body containing the user's text input
-
-        Returns:
-            dict: The summary result
-
-        Raises:
-            HTTPException: 400 Bad Request - if the text is under 250 characters.
-            HTTPException: 429 Too Many Requests - reached Groq API rate limit
-            HTTPException: 503 Service Unavailable - cannot connect to Groq services
-            HTTPException: 500 Internal Server Error - unexpected backend failures
-
+        Summarizes the text on a webpage into three bullet
+    
     """
+    text = extract_web_text(req.text)
     res = await prompt_gpt(text)
+    
     return res
