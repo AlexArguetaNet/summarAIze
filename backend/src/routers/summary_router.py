@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status
 from src.controllers.index import get_text_summary
-from src.schemas.text_request import TextRequest
+from src.schemas.summary_request import SummaryRequest
 from src.docs.routers import SUMMARIZE_ENDPOINT_DESCRIPTION
 
 router = APIRouter()
@@ -17,5 +17,5 @@ router = APIRouter()
             503: {"description": "Groq summarization Service Unavailable"}
         } 
 )
-async def summarize(text: TextRequest) -> dict:
+async def summarize(text: SummaryRequest) -> dict:
     return await get_text_summary(text)

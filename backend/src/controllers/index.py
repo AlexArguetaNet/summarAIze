@@ -1,9 +1,9 @@
-from src.schemas.text_request import TextRequest
+from src.schemas.summary_request import SummaryRequest
 from src.utils.ai import prompt_gpt
 
-async def get_text_summary(text: TextRequest) -> dict:
+async def get_text_summary(text: SummaryRequest) -> dict:
     """
-        Summarizes text into three bullet points using GPT OSS 20B via the Groq API.
+        Summarizes plain text into three bullet points using GPT OSS 20B via the Groq API.
 
         Validates the character count of text is at least 250. A chat completion request
         is sent to OpenAI's GPT OSS 120B model hosted on Groq Cloud and the chat response

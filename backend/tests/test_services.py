@@ -1,6 +1,6 @@
 from unittest.mock import patch, MagicMock
 from src.utils.ai import prompt_gpt
-from src.schemas.text_request import TextRequest
+from src.schemas.summary_request import SummaryRequest
 from fastapi import HTTPException
 from groq import APIConnectionError, RateLimitError, APIStatusError
 import pytest
@@ -26,8 +26,9 @@ async def test_prompt_gpt():
         return_value=mock_response
     ):
         # Create argument to pass to prompt_gpt
-        text = TextRequest(
-            text="Hurricanes develop over warm ocean waters, typically when sea surface temperatures exceed 26.5 degrees Celsius (about 80 degrees Fahrenheit). The process begins with the evaporation of water, which increases humidity in the atmosphere. As warm, moist air rises, it creates a low-pressure area beneath. This rising air cools and condenses, releasing latent heat, which further fuels the storm. Wind patterns, particularly the Coriolis effect, help organize the storm's rotation, leading to the formation of a well-defined center known as the eye. As the system strengthens, it can evolve into a tropical storm and eventually a hurricane, characterized by sustained winds of at least 74 miles per hour."
+        text = SummaryRequest(
+            text="Hurricanes develop over warm ocean waters, typically when sea surface temperatures exceed 26.5 degrees Celsius (about 80 degrees Fahrenheit). The process begins with the evaporation of water, which increases humidity in the atmosphere. As warm, moist air rises, it creates a low-pressure area beneath. This rising air cools and condenses, releasing latent heat, which further fuels the storm. Wind patterns, particularly the Coriolis effect, help organize the storm's rotation, leading to the formation of a well-defined center known as the eye. As the system strengthens, it can evolve into a tropical storm and eventually a hurricane, characterized by sustained winds of at least 74 miles per hour.",
+            isUrl=False
         )
 
         # Call prompt_gpt
@@ -55,8 +56,9 @@ async def test_prompt_gpt_illegible_response():
         return_value=mock_response
     ):
         # Send data to simulate POST request
-        text = TextRequest(
-            text="sdfwfe;lij wenfl;ij x;lcivj sndfl;iwje fwnefl;iwje fnweflij wnefl;ijx cvbnsdfl;iwjef nwefli;j nxcvlijs dfnwefli nxclvij sdlfnwefl;ij xcnvlsdi;jf wnefliwj efnwelfij xcv;lijs dfnwel;fijwefnl;xicvj;lsidfjwe;lifnweuhgsdfkguhsdlfjiw l;i oiruwoieurowieurskldjfhlksjdfhlkwjehfxcvkjh   lsdkfjwle;ifjwenfl;ijwe;lfinxclv;ijsdfwef"
+        text = SummaryRequest(
+            text="sdfwfe;lij wenfl;ij x;lcivj sndfl;iwje fwnefl;iwje fnweflij wnefl;ijx cvbnsdfl;iwjef nwefli;j nxcvlijs dfnwefli nxclvij sdlfnwefl;ij xcnvlsdi;jf wnefliwj efnwelfij xcv;lijs dfnwel;fijwefnl;xicvj;lsidfjwe;lifnweuhgsdfkguhsdlfjiw l;i oiruwoieurowieurskldjfhlksjdfhlkwjehfxcvkjh   lsdkfjwle;ifjwenfl;ijwe;lfinxclv;ijsdfwef",
+            isUrl=False
         )
 
         # Raise the exception
@@ -82,8 +84,9 @@ async def test_prompt_gpt_api_connection_error():
         "src.utils.ai.client.chat.completions.create",
         side_effect=mock_error
     ):
-        text = TextRequest(
-            text="The Google Pixel 11 is the latest addition to Google's smartphone lineup, showcasing advanced features and enhancements that cater to tech-savvy users. With its improved camera capabilities, sleek design, and integration of artificial intelligence, the device aims to provide an exceptional user experience. Additionally, the Pixel 11 is expected to offer seamless connectivity and performance, making it a strong contender in the competitive smartphone market."
+        text = SummaryRequest(
+            text="The Google Pixel 11 is the latest addition to Google's smartphone lineup, showcasing advanced features and enhancements that cater to tech-savvy users. With its improved camera capabilities, sleek design, and integration of artificial intelligence, the device aims to provide an exceptional user experience. Additionally, the Pixel 11 is expected to offer seamless connectivity and performance, making it a strong contender in the competitive smartphone market.",
+            isUrl=False
         )
 
         # Raise the exception
@@ -113,8 +116,9 @@ async def test_prompt_gpt_rate_limit_error():
         "src.utils.ai.client.chat.completions.create",
         side_effect=mock_error
     ):
-        text = TextRequest(
-                    text="The Google Pixel 11 is the latest addition to Google's smartphone lineup, showcasing advanced features and enhancements that cater to tech-savvy users. With its improved camera capabilities, sleek design, and integration of artificial intelligence, the device aims to provide an exceptional user experience. Additionally, the Pixel 11 is expected to offer seamless connectivity and performance, making it a strong contender in the competitive smartphone market."
+        text = SummaryRequest(
+            text="The Google Pixel 11 is the latest addition to Google's smartphone lineup, showcasing advanced features and enhancements that cater to tech-savvy users. With its improved camera capabilities, sleek design, and integration of artificial intelligence, the device aims to provide an exceptional user experience. Additionally, the Pixel 11 is expected to offer seamless connectivity and performance, making it a strong contender in the competitive smartphone market.",
+            isUrl=False
         )
 
         # Raise the exception
@@ -144,8 +148,9 @@ async def test_prompt_gpt_api_status_error():
         "src.utils.ai.client.chat.completions.create",
         side_effect=mock_error
     ):
-        text = TextRequest(
-            text="The Google Pixel 11 is the latest addition to Google's smartphone lineup, showcasing advanced features and enhancements that cater to tech-savvy users. With its improved camera capabilities, sleek design, and integration of artificial intelligence, the device aims to provide an exceptional user experience. Additionally, the Pixel 11 is expected to offer seamless connectivity and performance, making it a strong contender in the competitive smartphone market."
+        text = SummaryRequest(
+            text="The Google Pixel 11 is the latest addition to Google's smartphone lineup, showcasing advanced features and enhancements that cater to tech-savvy users. With its improved camera capabilities, sleek design, and integration of artificial intelligence, the device aims to provide an exceptional user experience. Additionally, the Pixel 11 is expected to offer seamless connectivity and performance, making it a strong contender in the competitive smartphone market.",
+            isUrl=False
         )
 
         # Raise the exception

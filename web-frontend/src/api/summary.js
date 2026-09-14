@@ -5,7 +5,8 @@ const API_PREFIX = import.meta.env.VITE_ENDPOINT_PREFIX;
 export const fetchSummary = async (text) => {
 
     try {
-        const res = await axios.post(`${API_PREFIX}/summarize`, { text });
+        // TODO: Create isUrl parameter in this function
+        const res = await axios.post(`${API_PREFIX}/summarize`, { text, isUrl: false });
 
         // Format summary string
         const summaryString = res.data.summary

@@ -1,5 +1,5 @@
 from fastapi import HTTPException, status
-from src.schemas.text_request import TextRequest
+from src.schemas.summary_request import SummaryRequest
 from groq import Groq
 from groq import (APIConnectionError, RateLimitError, APIStatusError)
 from src.utils.env_variables import get_api_key
@@ -8,7 +8,7 @@ from src.utils.env_variables import get_api_key
 API_KEY = get_api_key()
 client = Groq(api_key=API_KEY)
 
-async def prompt_gpt(text: TextRequest) -> dict:
+async def prompt_gpt(text: SummaryRequest) -> dict:
     textNoSpaces = text.text.strip()
 
     # Check if input is only whitespace
