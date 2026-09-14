@@ -1,5 +1,5 @@
 from fastapi import APIRouter, status
-from src.controllers.ai_controller import prompt_gpt
+from src.controllers.index import get_text_summary
 from src.schemas.text_request import TextRequest
 from src.docs.routers import SUMMARIZE_ENDPOINT_DESCRIPTION
 
@@ -18,4 +18,4 @@ router = APIRouter()
         } 
 )
 async def summarize(text: TextRequest) -> dict:
-    return await prompt_gpt(text)
+    return await get_text_summary(text)

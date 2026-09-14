@@ -1,5 +1,5 @@
 from unittest.mock import patch, MagicMock
-from src.controllers.ai_controller import prompt_gpt
+from src.utils.ai import prompt_gpt
 from src.schemas.text_request import TextRequest
 from fastapi import HTTPException
 from groq import APIConnectionError, RateLimitError, APIStatusError
@@ -22,7 +22,7 @@ async def test_prompt_gpt():
 
     # Replace the original return value of "create" with the mock response
     with patch(
-        "src.controllers.ai_controller.client.chat.completions.create",
+        "src.utils.ai.client.chat.completions.create",
         return_value=mock_response
     ):
         # Create argument to pass to prompt_gpt
@@ -51,7 +51,7 @@ async def test_prompt_gpt_illegible_response():
 
     # Replace return value of groqs create function with the mock response
     with patch(
-        "src.controllers.ai_controller.client.chat.completions.create",
+        "src.utils.ai.client.chat.completions.create",
         return_value=mock_response
     ):
         # Send data to simulate POST request
@@ -79,7 +79,7 @@ async def test_prompt_gpt_api_connection_error():
 
     # Have create function return the mock error
     with patch(
-        "src.controllers.ai_controller.client.chat.completions.create",
+        "src.utils.ai.client.chat.completions.create",
         side_effect=mock_error
     ):
         text = TextRequest(
@@ -110,7 +110,7 @@ async def test_prompt_gpt_rate_limit_error():
 
     # Have create function return the mock error
     with patch(
-        "src.controllers.ai_controller.client.chat.completions.create",
+        "src.utils.ai.client.chat.completions.create",
         side_effect=mock_error
     ):
         text = TextRequest(
@@ -141,7 +141,7 @@ async def test_prompt_gpt_api_status_error():
 
     # Have the create function return the mock error
     with patch(
-        "src.controllers.ai_controller.client.chat.completions.create",
+        "src.utils.ai.client.chat.completions.create",
         side_effect=mock_error
     ):
         text = TextRequest(
