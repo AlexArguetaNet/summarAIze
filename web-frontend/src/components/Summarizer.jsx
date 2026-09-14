@@ -104,7 +104,10 @@ function Summarizer() {
             }
             <div className='flex justify-between items-center my-10'>
               <Button type="submit" size="lg" variant="outline" disabled={disableButton} className="bg-green-200/50 hover:bg-green-500/50" >Submit</Button>
-              { isParagraph ? <p>Characters | {textInput.replace(/ /g, "").length}</p> : <div className='w-29'></div> }
+              <div className='flex items-center space-x-7'>
+                { isParagraph ? <p>Characters | {textInput.replace(/ /g, "").length}</p> : <div className='w-29'></div> }
+                <Button size='lg' variant='outline' disable={disableButton}><MdDeleteOutline /></Button>
+              </div>
             </div>
           </div>
         </form>
