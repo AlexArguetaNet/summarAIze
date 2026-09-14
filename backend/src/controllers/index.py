@@ -7,11 +7,6 @@ async def get_text_summary(req: SummaryRequest) -> dict:
     return res
 
 async def get_url_summary(req: SummaryRequest) -> dict:
-    """
-        Summarizes the text on a webpage into three bullet
-    
-    """
     text = extract_web_text(req.text)
-    res = await prompt_gpt(text)
-    
+    res = await prompt_gpt(text)   
     return res
