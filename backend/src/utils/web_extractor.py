@@ -1,6 +1,7 @@
 import requests
 import trafilatura
 from fastapi import HTTPException, status
+import re
 
 def extract_web_text(url) -> str:
     custom_headers = {
@@ -8,6 +9,14 @@ def extract_web_text(url) -> str:
             "Mozilla/5.0 (X11; Linux x86_64) "
         )
     }
+
+    url_pattern = r"^https?://(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:[/?#][^\s]*)?$"
+
+    if not re.match(url_pattern, url):
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail="Enter a valid URL"
+        )
 
     try:
         res = requests.get(url, headers=custom_headers, timeout=10)
