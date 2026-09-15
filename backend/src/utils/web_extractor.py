@@ -10,8 +10,8 @@ def extract_web_text(url) -> str:
         )
     }
 
+    # Check if the URL provided is a valid URL
     url_pattern = r"^https?://(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:[/?#][^\s]*)?$"
-
     if not re.match(url_pattern, url):
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
