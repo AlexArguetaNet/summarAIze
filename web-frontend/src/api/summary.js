@@ -8,11 +8,24 @@ export const fetchSummary = async (text, isParagraph) => {
 
         let res;
 
-        // TODO: Create isUrl parameter in this function
         if (isParagraph) {
             res = await axios.post(`${API_PREFIX}/summarize`, { text, isUrl: false });
         } else {
+            // Check if URL provided is a valid URL
+            let url;
+
+            try {
+                url = new URL(text);
+            } catch (error) {
+                throw new Error("Invalid URL");
+            }
+    
+            if (url.protocol !== "http:" && url.protocol !== "https:") {
+                throw new Error("Invalid URL. Enter a real URL");
+            }
+
             res = await axios.post(`${API_PREFIX}/summarize-url`, { text, isUrl: true });
+
         }
 
         // Format summary string
@@ -32,9 +45,7 @@ export const fetchSummary = async (text, isParagraph) => {
                 summaryString
             };
                 
-    } catch (error) {
-        console.log("Failed to fetch summary", error);
-        
+    } catch (error) {        
         throw new Error(
             error.response?.data?.detail ||
             error.message ||
@@ -42,5 +53,6 @@ export const fetchSummary = async (text, isParagraph) => {
         )
         
     }
+
     
 }
