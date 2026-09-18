@@ -9,6 +9,7 @@ import { MdContentCopy } from "react-icons/md";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Alert, AlertTitle, AlertDescription, AlertAction } from "@/components/ui/alert"
 import { MdErrorOutline } from "react-icons/md";
+import { IoIosInformationCircleOutline } from "react-icons/io";
 
 function Summarizer() {
 
@@ -73,7 +74,11 @@ function Summarizer() {
     <div className="bg-(--glass-bg-light) backdrop-blur-xl border border-(--glass-border-light) rounded-xl h-fit mx-auto w-[70%] max-w-[900px] flex justify-center">
       <div className='w-full m-5'>
 
-        <div className='flex justify-end'>
+        <div className='flex justify-between items-center'>
+          <div className='flex items-center text-lg space-x-2'>
+            <IoIosInformationCircleOutline />
+            <p>AI can make mistakes</p>
+          </div>
           <Tabs defaultValue="paragraph" className="">
             <TabsList variant='line'>
               <TabsTrigger onClick={() => handleTextSwitch(true)} value="paragraph">Paragraph</TabsTrigger>

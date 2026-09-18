@@ -10,12 +10,19 @@
   }
 }
 
+@font-face {
+  font-family: "Kaushan Script";
+  src: url("./assets/fonts/KaushanScript-Regular.ttf");
+  font-style: normal;
+}
+
 @theme {
   --color-custom: #ffffff;
   --glass-bg-light: rgba(255, 255, 255, 0.15);
   --glass-border-light: rgba(255, 255, 255, 0.25);
   --color-theme-dark: rgba(30, 30, 30, 0.82); 
   --color-textarea-bg: rgba(255, 255, 255, .50);
+  --font-title: "Kaushan Script", cursive;
 }
 
 @custom-variant dark (&:is(.dark *));
