@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -16,6 +17,7 @@
   --glass-border-light: rgba(255, 255, 255, 0.25);
   --color-theme-dark: rgba(30, 30, 30, 0.82); 
   --color-textarea-bg: rgba(255, 255, 255, .50);
+  --font-title: "Kaushan Script", cursive;
 }
 
 @custom-variant dark (&:is(.dark *));
