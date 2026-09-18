@@ -4,8 +4,10 @@
 SummarAIze is an AI text summarization tool used to condense large bodies of text into three sentences.
 
 ## Features
-- AI-Powered text summarization
-- Copy the generated summary directly to your clipboard
+- **Text Summarization** — Summarize text into three concise bullet points.
+- **URL Summarization** — Paste a webpage URL to extract and summarize its content.
+- **Copy to Clipboard** — Copy the generated summary to your clipboard with one click.
+
 
 ## Tech Stack
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge\&logo=react\&logoColor=61DAFB)](https://react.dev/)
@@ -31,7 +33,7 @@ SummarAIze is an AI text summarization tool used to condense large bodies of tex
 3. Navigate into the repository directory:
 
     ```
-    cd summaraize
+    cd summarAIze
     ```
 
 ### Run using Docker (Recommended)
@@ -183,6 +185,11 @@ The backend should now be running at:
 
 <b>SummarAIze should now be displayed and ready to use.</b>
 
+## Testing
+The project uses [Pytest](https://docs.pytest.org/en/stable/) for backend testing and [Vitest](https://vitest.dev/) for frontend testing.
+
+Tests are also automatically ran through GitHub Actions when pull requests are opened, and again when changes are pushed to the repository.
+
 ## How it Works
 SummarAIze uses a React frontend, a FastAPI backend, and the Groq API to generate summaries in the form of three bullet point sentences. When a user submits text, the frontend sends it to the backend in a POST request. The backend then processes the request and send the user's text to Groq. The text is summarized using the OpenAI's GPT OSS 120B model and returns the summary back to the frontend and displayed to the user. 
 
@@ -227,8 +234,5 @@ A decoupled application architecture is used, with the React frontend and FastAP
 └── README.md
 ```
 
-## Testing
-The project uses [Pytest](https://docs.pytest.org/en/stable/) for backend testing and [Vitest](https://vitest.dev/) for frontend testing.
 
-Tests are also automatically ran through GitHub Actions when pull requests are opened, and again when changes are pushed to the repository.
 
